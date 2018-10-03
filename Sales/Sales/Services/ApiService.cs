@@ -9,6 +9,8 @@ namespace Sales.Services
     using Common.Models;
     using Newtonsoft.Json;
     using Plugin.Connectivity;
+    using Sales.Helpers;
+    using Xamarin.Forms;
 
     public class ApiService
     {
@@ -19,17 +21,16 @@ namespace Sales.Services
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "Please turn your internet settings.",
+                    Message = Languages.TurnOnInternet,
                 };
             }
-
             var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com");
             if (!isReachable)
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    Message = "No internet connection.",
+                    Message = Languages.NoInternet,
                 };
             }
 

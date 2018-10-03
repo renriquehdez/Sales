@@ -6,6 +6,7 @@
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using Sales.Common.Models;
+    using Sales.Helpers;
     using Services;
     using Xamarin.Forms;
 
@@ -50,27 +51,30 @@
                 this.IsRefreshing = false;
 
                 await Application.Current.MainPage.DisplayAlert(
-                   "Error",
+                   Languages.Error,
                    connection.Message,
-                   "Accept");
+                   Languages.Accept);
                 return;
             }
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlProductsController"].ToString();
+
             //var url = "https://f0990b3e.ngrok.io";
             var response = await this.apiService.GetList<Product>(
                 url,
-                "/salesapi/api",
-                "/products");
+                prefix,
+                controller);
    
             if (!response.IsSuccess)
             {
                 this.IsRefreshing = false;
 
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    response.Message,
-                    "Accept");
+                   Languages.Error,
+                   connection.Message,
+                   Languages.Accept);
                 return;
             }
 
