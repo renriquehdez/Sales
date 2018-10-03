@@ -32,7 +32,14 @@ namespace Sales.Common.Models
         public DateTime PublishOn
         {
             get; set;
-        } 
+        }
+        #endregion
+
+        #region Methods
+        public override string ToString()
+        {
+            return this.Description;
+        }
         #endregion
     }
 }
