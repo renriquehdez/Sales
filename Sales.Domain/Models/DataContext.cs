@@ -3,6 +3,7 @@
 namespace Sales.Domain.Models
 {
     using System.Data.Entity;
+    using Common.Models;
     public class DataContext : DbContext
     {
         #region Constructors
@@ -11,7 +12,7 @@ namespace Sales.Domain.Models
         }
         #endregion
 
-        public System.Data.Entity.DbSet<Sales.Common.Models.Product> Products
+        public DbSet<Product> Products
         {
             get; set;
         }

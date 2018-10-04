@@ -1,16 +1,14 @@
-﻿namespace Sales.Backend.Controllers
+﻿
+
+namespace Sales.Backend.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
     using System.Data.Entity;
-    using System.Linq;
     using System.Threading.Tasks;
     using System.Net;
-    using System.Web;
     using System.Web.Mvc;
     using Sales.Backend.Models;
     using Sales.Common.Models;
+    using System.Linq;
 
     public class ProductsController : Controller
     {
@@ -19,7 +17,7 @@
         // GET: Products
         public async Task<ActionResult> Index()
         {
-            return View(await db.Products.ToListAsync());
+            return View(await this.db.Products.OrderBy(p => p.Description).ToListAsync());
         }
 
         // GET: Products/Details/5
@@ -29,7 +27,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = await db.Products.FindAsync(id);
+            var product = await this.db.Products.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -48,12 +46,12 @@
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ProductID,Description,Price,IsAvailable,PublishOn")] Product product)
+        public async Task<ActionResult> Create(Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Products.Add(product);
-                await db.SaveChangesAsync();
+                this.db.Products.Add(product);
+                await this.db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
@@ -67,7 +65,9 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = await db.Products.FindAsync(id);
+
+            var product = await this.db.Products.FindAsync(id);
+
             if (product == null)
             {
                 return HttpNotFound();
@@ -80,12 +80,12 @@
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProductID,Description,Price,IsAvailable,PublishOn")] Product product)
+        public async Task<ActionResult> Edit(Product product)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                this.db.Entry(product).State = EntityState.Modified;
+                await this.db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(product);
@@ -98,7 +98,7 @@
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = await db.Products.FindAsync(id);
+            var product = await this.db.Products.FindAsync(id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -111,9 +111,9 @@
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Product product = await db.Products.FindAsync(id);
-            db.Products.Remove(product);
-            await db.SaveChangesAsync();
+            Product product = await this.db.Products.FindAsync(id);
+            this.db.Products.Remove(product);
+            await this.db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +121,7 @@
         {
             if (disposing)
             {
-                db.Dispose();
+                this.db.Dispose();
             }
             base.Dispose(disposing);
         }
