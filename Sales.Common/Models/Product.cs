@@ -8,31 +8,27 @@ namespace Sales.Common.Models
     {
         #region Properties
         [Key]
-        public int ProductID
-        {
-            get; set;
-        }
+        public int ProductID { get; set; }
 
         [Required]
-        public string Description
-        {
-            get; set;
-        }
+        [StringLength(50)]
+        public string Description { get; set; }
 
-        public Decimal Price
-        {
-            get; set;
-        }
+        [DataType(DataType.MultilineText)]
+        public string Remarks { get; set; }
 
-        public bool IsAvailable
-        {
-            get; set;
-        }
+        [Display(Name ="Image")]
+        public string ImagePath{ get; set; }
 
-        public DateTime PublishOn
-        {
-            get; set;
-        }
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        public Decimal Price { get; set; }
+
+        [Display(Name = "Is Available")]
+        public bool IsAvailable { get; set; }
+
+        [Display(Name = "Publish On")]
+        [DataType(DataType.Date)]
+        public DateTime PublishOn { get; set; }
         #endregion
 
         #region Methods
