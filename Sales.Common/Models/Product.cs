@@ -4,6 +4,7 @@ namespace Sales.Common.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
     public class Product
     {
         #region Properties
@@ -29,6 +30,21 @@ namespace Sales.Common.Models
         [Display(Name = "Publish On")]
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
+
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.ImagePath))
+                {
+                    return "noproduct";
+                }
+
+                return $"https://f0990b3e.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
+            }
+        }
+
+
         #endregion
 
         #region Methods
