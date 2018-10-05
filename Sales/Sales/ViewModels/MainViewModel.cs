@@ -14,6 +14,11 @@ namespace Sales.ViewModels
         {
             get; set;
         }
+
+        public AddProductViewModel AddProduct
+        {
+            get; set;
+        }
         #endregion
 
         #region Contructors
@@ -34,6 +39,7 @@ namespace Sales.ViewModels
 
         private async void GoToAddProduct()
         {
+            AddProduct = new AddProductViewModel();
             await Application.Current.MainPage.Navigation.PushAsync(new AddProductPage());
         }
         #endregion
