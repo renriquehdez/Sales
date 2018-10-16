@@ -40,7 +40,8 @@ namespace Sales.Common.Models
                     return "noproduct";
                 }
 
-                return $"https://f0990b3e.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
+                //return $"https://f0990b3e.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
+                return $"https://ca714f50.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
             }
         }
 
