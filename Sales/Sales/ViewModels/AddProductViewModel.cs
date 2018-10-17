@@ -1,5 +1,6 @@
 ﻿namespace Sales.ViewModels
 {
+    using System.Linq;
     using System.Windows.Input;
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
@@ -150,6 +151,11 @@
                    Languages.Accept);
                 return;
             }
+
+            var newProduct = (Product)response.Result;
+            // Llamado del Singleton
+            var viewModel = ProductsViewModel.GetInstance();
+            viewModel.Products.Add(newProduct);
 
             this.IsRunning = false;
             this.IsEnabled = true;

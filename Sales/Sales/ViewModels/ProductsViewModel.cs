@@ -5,8 +5,8 @@
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
-    using Sales.Common.Models;
-    using Sales.Helpers;
+    using Common.Models;
+    using Helpers;
     using Services;
     using Xamarin.Forms;
 
@@ -14,32 +14,60 @@
     {
         #region Atributtes
         private ApiService apiService;
-        private ObservableCollection<Product> products;
         private bool isRefreshing;
+        private ObservableCollection<Product> products;
         #endregion
 
         #region Properties
         public ObservableCollection<Product> Products
         {
-            get { return this.products; }
-            set{ this.SetValue(ref this.products, value);}
+            get
+            {
+                return this.products;
+            }
+            set
+            {
+                this.SetValue(ref this.products, value);
+            }
         }
 
         public bool IsRefreshing
         {
-            get { return this.isRefreshing; }
-            set { this.SetValue(ref this.isRefreshing, value); }
+            get
+            {
+                return this.isRefreshing;
+            }
+            set
+            {
+                this.SetValue(ref this.isRefreshing, value);
+            }
         }
         #endregion
 
         #region Contructors
         public ProductsViewModel()
         {
+            instance = this;
             this.apiService = new ApiService();
             this.LoadProducts();
         }
         #endregion
 
+        #region Singleton
+        private static ProductsViewModel instance;
+
+        public static ProductsViewModel GetInstance()
+        {
+            if (instance == null)
+            {
+                return new ProductsViewModel();
+            }
+
+            return instance;
+        }
+        #endregion
+
+        #region Methods
         private async void LoadProducts()
         {
             this.IsRefreshing = true;
@@ -66,7 +94,7 @@
                 url,
                 prefix,
                 controller);
-   
+
             if (!response.IsSuccess)
             {
                 this.IsRefreshing = false;
@@ -83,13 +111,14 @@
 
             this.IsRefreshing = false;
         }
+        #endregion
 
         #region Commands
         public ICommand RefreshCommand
         {
             get
             {
-               return new RelayCommand(LoadProducts);
+                return new RelayCommand(LoadProducts);
             }
         }
         #endregion
