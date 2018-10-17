@@ -9,17 +9,18 @@
     using Helpers;
     using Services;
     using Xamarin.Forms;
+    using System.Linq;
 
     public class ProductsViewModel : BaseViewModel
     {
         #region Atributtes
         private ApiService apiService;
         private bool isRefreshing;
-        private ObservableCollection<Product> products;
+        private ObservableCollection<ProductItemViewModel> products;
         #endregion
 
         #region Properties
-        public ObservableCollection<Product> Products
+        public ObservableCollection<ProductItemViewModel> Products
         {
             get
             {
@@ -107,7 +108,27 @@
             }
 
             var list = (List<Product>)response.Result;
-            this.Products = new ObservableCollection<Product>(list);
+            //var myList = new List<ProductItemViewModel>();
+            //foreach (var item in list)
+            //{
+            //    myList.Add(new ProductItemViewModel
+            //    {
+            //    });
+            //}
+            var myList = list.Select(p => new ProductItemViewModel
+            {
+                Description = p.Description,
+                ImageArray = p.ImageArray,
+                ImagePath = p.ImagePath,
+                IsAvailable = p.IsAvailable,
+                Price = p.Price,
+                ProductID = p.ProductID,
+                PublishOn = p.PublishOn,
+                Remarks = p.Remarks,
+            });
+
+
+            this.Products = new ObservableCollection<ProductItemViewModel>(myList);
 
             this.IsRefreshing = false;
         }

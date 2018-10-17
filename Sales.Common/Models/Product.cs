@@ -4,6 +4,7 @@ namespace Sales.Common.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Product
     {
@@ -31,6 +32,12 @@ namespace Sales.Common.Models
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
 
+        [NotMapped]
+        public byte[] ImageArray
+        {
+            get; set;
+        }
+
         public string ImageFullPath
         {
             get
@@ -41,11 +48,10 @@ namespace Sales.Common.Models
                 }
 
                 //return $"https://f0990b3e.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
-                return $"https://ca714f50.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
+                //return $"https://ca714f50.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
+                return $"https://ca714f50.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
             }
         }
-
-
         #endregion
 
         #region Methods

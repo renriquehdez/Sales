@@ -14,7 +14,8 @@
                 <Image
 	                Source="{Binding ImageSource}">
                     <Image.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding ChangeImageCommand}"/>
+                        <TapGestureRecognizer 
+                            Command="{Binding ChangeImageCommand}"/>
                     </Image.GestureRecognizers>
                 </Image>
                 <Label
