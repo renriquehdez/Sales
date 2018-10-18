@@ -160,6 +160,15 @@ namespace Sales.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit product.
+        /// </summary>
+        public static string EditProduct {
+            get {
+                return ResourceManager.GetString("EditProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -183,6 +192,15 @@ namespace Sales.Resources {
         public static string ImageSource {
             get {
                 return ResourceManager.GetString("ImageSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is available?.
+        /// </summary>
+        public static string IsAvailable {
+            get {
+                return ResourceManager.GetString("IsAvailable", resourceCulture);
             }
         }
         

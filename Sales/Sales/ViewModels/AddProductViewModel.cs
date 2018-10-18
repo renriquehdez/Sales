@@ -150,8 +150,8 @@
 
             var product = new Product
             {
-                Description =  this.Description,
-                Price =  price,
+                Description = this.Description,
+                Price = price,
                 Remarks = this.Remarks,
                 ImageArray = imageArray,
             };

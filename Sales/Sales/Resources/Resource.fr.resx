@@ -195,4 +195,10 @@ Remarques :
   <data name="Confirm" xml:space="preserve">
     <value>Confirmer</value>
   </data>
+  <data name="EditProduct" xml:space="preserve">
+    <value>Editer produit</value>
+  </data>
+  <data name="IsAvailable" xml:space="preserve">
+    <value>Est disponible?</value>
+  </data>
 </root>
