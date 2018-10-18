@@ -49,7 +49,7 @@ namespace Sales.Common.Models
 
                 //return $"https://f0990b3e.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
                 //return $"https://ca714f50.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
-                return $"https://ca714f50.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
+                return $"https://913e0850.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
             }
         }
         #endregion

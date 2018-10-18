@@ -8,7 +8,7 @@ namespace Sales.ViewModels
     using GalaSoft.MvvmLight.Command;
     using Helpers;
     using Services;
-    
+    using Views;
     using Xamarin.Forms;
 
     public class ProductItemViewModel : Product
@@ -83,6 +83,20 @@ namespace Sales.ViewModels
             {
                 productsViewModel.Products.Remove(deletedProduct);
             }
+        }
+
+        public ICommand EditProductCommand
+        {
+            get
+            {
+                return new RelayCommand(EditProduct);
+            }
+        }
+
+        private async void EditProduct()
+        {
+            MainViewModel.GetInstance().EditProduct = new EditProductViewModel(this);
+            await Application.Current.MainPage.Navigation.PushAsync(new EditProductPage());
         }
         #endregion
     }

@@ -180,18 +180,9 @@
 
             var newProduct = (Product)response.Result;
             // Llamado del Singleton
-            var viewModel = ProductsViewModel.GetInstance();
-            viewModel.Products.Add(new ProductItemViewModel
-            {
-                Description = newProduct.Description,
-                ImageArray = newProduct.ImageArray,
-                ImagePath = newProduct.ImagePath,
-                IsAvailable = newProduct.IsAvailable,
-                Price = newProduct.Price,
-                ProductID = newProduct.ProductID,
-                PublishOn = newProduct.PublishOn,
-                Remarks = newProduct.Remarks,
-            });
+            var productViewModel = ProductsViewModel.GetInstance();
+            productViewModel.MyProducts.Add(newProduct);
+            productViewModel.RefreshList();
 
             this.IsRunning = false;
             this.IsEnabled = true;
