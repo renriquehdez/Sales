@@ -17,6 +17,7 @@
         private ApiService apiService;
         private bool isRefreshing;
         private ObservableCollection<ProductItemViewModel> products;
+        private string filter;
         #endregion
 
         #region Properties
@@ -48,6 +49,19 @@
         {
             get; set;
         }
+
+        public string Filter
+        {
+            get
+            {
+                return this.filter;
+            }
+            set
+            {
+                this.SetValue(ref this.filter, value);
+                this.RefreshList();
+            }
+        }
         #endregion
 
         #region Contructors
@@ -73,7 +87,15 @@
         }
         #endregion
 
-        #region Methods
+        #region Commands
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadProducts);
+            }
+        }
+
         private async void LoadProducts()
         {
             this.IsRefreshing = true;
@@ -120,29 +142,47 @@
 
         public void RefreshList()
         {
-            var myListProductItemViewModel = this.MyProducts.Select(p => new ProductItemViewModel
+            if (string.IsNullOrEmpty(this.Filter))
             {
-                Description = p.Description,
-                ImageArray = p.ImageArray,
-                ImagePath = p.ImagePath,
-                IsAvailable = p.IsAvailable,
-                Price = p.Price,
-                ProductID = p.ProductID,
-                PublishOn = p.PublishOn,
-                Remarks = p.Remarks,
-            });
+                var myListProductItemViewModel = this.MyProducts.Select(p => new ProductItemViewModel
+                {
+                    Description = p.Description,
+                    ImageArray = p.ImageArray,
+                    ImagePath = p.ImagePath,
+                    IsAvailable = p.IsAvailable,
+                    Price = p.Price,
+                    ProductID = p.ProductID,
+                    PublishOn = p.PublishOn,
+                    Remarks = p.Remarks,
+                });
 
-            this.Products = new ObservableCollection<ProductItemViewModel>(
-                myListProductItemViewModel.OrderBy(p => p.Description));
+                this.Products = new ObservableCollection<ProductItemViewModel>(
+                    myListProductItemViewModel.OrderBy(p => p.Description));
+            }
+            else
+            {
+                var myListProductItemViewModel = this.MyProducts.Select(p => new ProductItemViewModel
+                {
+                    Description = p.Description,
+                    ImageArray = p.ImageArray,
+                    ImagePath = p.ImagePath,
+                    IsAvailable = p.IsAvailable,
+                    Price = p.Price,
+                    ProductID = p.ProductID,
+                    PublishOn = p.PublishOn,
+                    Remarks = p.Remarks,
+                }).Where(p => p.Description.ToLower().Contains(this.Filter.ToLower()));
+
+                this.Products = new ObservableCollection<ProductItemViewModel>(
+                    myListProductItemViewModel.OrderBy(p => p.Description));
+            }
         }
-        #endregion
 
-        #region Commands
-        public ICommand RefreshCommand
+        public ICommand SearchCommand
         {
             get
             {
-                return new RelayCommand(LoadProducts);
+                return new RelayCommand(RefreshList);
             }
         }
         #endregion
