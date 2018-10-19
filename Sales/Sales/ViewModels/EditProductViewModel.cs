@@ -190,6 +190,79 @@ namespace Sales.ViewModels
             await Application.Current.MainPage.Navigation.PopAsync();
         }
 
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(Delete);
+            }
+        }
+
+        private async void Delete()
+        {
+            var anwser = await Application.Current.MainPage.DisplayAlert(
+                Languages.Confirm,
+                Languages.DeleteConfirmation,
+                Languages.Yes,
+                Languages.No);
+
+            if (!anwser)
+            {
+                return;
+            }
+
+            this.IsRunning = true;
+            this.isEnabled = false;
+
+            var connection = await this.apiService.CheckConnection();
+
+            if (!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.isEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                   Languages.Error,
+                   connection.Message,
+                   Languages.Accept);
+                return;
+            }
+
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlProductsController"].ToString();
+
+            //var url = "https://f0990b3e.ngrok.io";
+            var response = await this.apiService.Delete(
+                url,
+                prefix,
+                controller,
+                this.Product.ProductID);
+
+            if (!response.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.isEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                   Languages.Error,
+                   connection.Message,
+                   Languages.Accept);
+                return;
+            }
+
+            var productsViewModel = ProductsViewModel.GetInstance();
+            var deletedProduct = productsViewModel.MyProducts.Where(
+                                        p => p.ProductID == this.Product.ProductID).FirstOrDefault();
+
+            if (deletedProduct != null)
+            {
+                productsViewModel.MyProducts.Remove(deletedProduct);
+            }
+
+            productsViewModel.RefreshList();
+
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
+
         public ICommand ChangeImageCommand
         {
             get
