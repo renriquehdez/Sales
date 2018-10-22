@@ -4,6 +4,7 @@ namespace Sales.ViewModels
     using System.Windows.Input;
     using GalaSoft.MvvmLight.Command;
     using Helpers;
+    using Views;
     using Services;
     using Xamarin.Forms;
 
@@ -126,13 +127,15 @@ namespace Sales.ViewModels
                 return;
             }
 
+            Settings.TokenType = token.TokenType;
+            Settings.AccessToken = token.AccessToken;
+            Settings.IsRemembered = this.IsRemembered;
+
+            MainViewModel.GetInstance().Products = new ProductsViewModel();
+            Application.Current.MainPage = new ProductsPage();
+
             this.IsRunning = true;
             this.isEnabled = false;
-
-            await Application.Current.MainPage.DisplayAlert(
-               "Ok",
-               "Listo",
-               Languages.Accept);
         }
         #endregion
     }

@@ -126,7 +126,7 @@
                     <Image
                     	Aspect="AspectFit"
                     	HeightRequest="70"
-                    	Source="if_instagram-logo"
+                    	Source="if_instagram_logo"
                     	WidthRequest="70">
                         <Image.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LoginInstagramComand}"/>
