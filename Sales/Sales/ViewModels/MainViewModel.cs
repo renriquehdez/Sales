@@ -23,13 +23,17 @@ namespace Sales.ViewModels
         {
             get; set;
         }
+
+        public LoginViewModel Login
+        {
+            get; set;
+        }
         #endregion
 
         #region Contructors
         public MainViewModel()
         {
             instance = this;
-            this.Products = new ProductsViewModel();
         }
         #endregion
 
