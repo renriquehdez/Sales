@@ -10,8 +10,9 @@
             <infra:InstanceLocator x:Key="Locator"/>
             
             <!--Parameters -->
-            <x:String x:Key="UrlAPI">https://913e0850.ngrok.io/</x:String>
-            <x:String x:Key="UrlPrefix">/salesapi/api</x:String>
+            <x:String x:Key="UrlAPI">https://90b67950.ngrok.io/</x:String>
+            <x:String x:Key="UrlAPI2">https://90b67950.ngrok.io/salesapi/</x:String>
+            <x:String x:Key="UrlPrefix">salesapi/api</x:String>
             <x:String x:Key="UrlProductsController">/products</x:String>
         </ResourceDictionary>
 	</Application.Resources>
