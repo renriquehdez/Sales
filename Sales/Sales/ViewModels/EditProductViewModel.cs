@@ -151,12 +151,7 @@ namespace Sales.ViewModels
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
 
-            var response = await this.apiService.Put(
-                url,
-                prefix,
-                controller,
-                this.Product,
-                this.Product.ProductID);
+            var response = await this.apiService.Put(url, prefix, controller, this.Product, this.Product.ProductID, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {
@@ -232,11 +227,7 @@ namespace Sales.ViewModels
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
 
             //var url = "https://f0990b3e.ngrok.io";
-            var response = await this.apiService.Delete(
-                url,
-                prefix,
-                controller,
-                this.Product.ProductID);
+            var response = await this.apiService.Delete(url, prefix, controller, this.Product.ProductID, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {

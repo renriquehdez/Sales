@@ -61,11 +61,7 @@ namespace Sales.ViewModels
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
 
             //var url = "https://f0990b3e.ngrok.io";
-            var response = await this.apiService.Delete(
-                url,
-                prefix,
-                controller,
-                this.ProductID);
+            var response = await this.apiService.Delete(url, prefix, controller, this.ProductID, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {
