@@ -235,7 +235,7 @@
     <value>Confirmer</value>
   </data>
   <data name="PasswordConfirmError" xml:space="preserve">
-    <value>Vous devez entrer un mot de passe pour confirmer.</value>
+    <value>Vous devez entrer un mot de passe pour confirmer</value>
   </data>
   <data name="PasswordConfirmPlaceHolder" xml:space="preserve">
     <value>Entrez votre mot de passe pour confirmer ...</value>
