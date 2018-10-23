@@ -14,6 +14,7 @@
             <x:String x:Key="UrlAPI2">https://90b67950.ngrok.io/salesapi/</x:String>
             <x:String x:Key="UrlPrefix">salesapi/api</x:String>
             <x:String x:Key="UrlProductsController">/products</x:String>
+            <x:String x:Key="UrlUsersController">/Users</x:String>
         </ResourceDictionary>
 	</Application.Resources>
 </Application>

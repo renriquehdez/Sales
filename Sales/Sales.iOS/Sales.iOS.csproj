@@ -206,4 +206,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_phonelink_setup.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\if_user.png" />
+  </ItemGroup>
 </Project>

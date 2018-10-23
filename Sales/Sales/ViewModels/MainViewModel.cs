@@ -36,6 +36,10 @@ namespace Sales.ViewModels
             get; set;
         }
 
+        public RegisterViewModel Register
+        {
+            get; set;
+        }
         #endregion
 
         #region Contructors
