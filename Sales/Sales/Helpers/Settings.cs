@@ -1,6 +1,4 @@
-﻿
-
-namespace Sales.Helpers
+﻿namespace Sales.Helpers
 {
     using Plugin.Settings;
     using Plugin.Settings.Abstractions;
@@ -26,6 +24,8 @@ namespace Sales.Helpers
         private const string isRemembered = "IsRemembered";
         private static readonly string stringDefault = string.Empty;
         private static readonly bool booleanDefault = false;
+
+        private const string urlPublic = "https://b205c84d.ngrok.io/";
 
         #endregion
 
@@ -63,6 +63,18 @@ namespace Sales.Helpers
             set
             {
                 AppSettings.AddOrUpdateValue(isRemembered, value);
+            }
+        }
+
+        public static string UrlPublic
+        {
+            get
+            {
+                return AppSettings.GetValueOrDefault(urlPublic, stringDefault);
+            }
+            set
+            {
+                AppSettings.AddOrUpdateValue(urlPublic, value);
             }
         }
 
