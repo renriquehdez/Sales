@@ -28,6 +28,12 @@
             }
 
             var answer = UsersHelper.CreateUserASP(userRequest);
+
+            if (!answer.IsSuccess)
+            {
+                return BadRequest(answer.Message);
+            }
+
             return Ok(answer);
         }
 
