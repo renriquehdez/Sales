@@ -73,7 +73,9 @@
                     </Label.GestureRecognizers>
                 </Label>
                 <ActivityIndicator
+                    Color="Black"
                 	IsRunning="{Binding IsRunning}"
+                    IsVisible="True"
                 	VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <StackLayout

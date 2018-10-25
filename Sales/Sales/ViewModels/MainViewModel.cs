@@ -26,25 +26,13 @@ namespace Sales.ViewModels
             get; set;
         }
 
-        public LoginViewModel Login
-        {
-            get; set;
-        }
+        public LoginViewModel Login { get; set; }
 
-        public ObservableCollection<MenuItemViewModel> Menu
-        {
-            get; set;
-        }
+        public ObservableCollection<MenuItemViewModel> Menu { get; set; }
 
-        public RegisterViewModel Register
-        {
-            get; set;
-        }
+        public RegisterViewModel Register { get; set; }
 
-        public MyUserASP UserASP
-        {
-            get; set;
-        }
+        public MyUserASP UserASP { get; set; }
 
         public string UserFullName
         {

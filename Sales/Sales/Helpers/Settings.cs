@@ -29,8 +29,7 @@
         private const string urlPublic = "https://b205c84d.ngrok.io/";
 
         #endregion
-
-
+        
         public static string TokenType
         {
             get

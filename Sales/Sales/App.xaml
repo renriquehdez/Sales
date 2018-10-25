@@ -13,7 +13,7 @@
             <x:String x:Key="UrlAPI">https://b205c84d.ngrok.io/</x:String>
             <x:String x:Key="UrlAPI2">https://b205c84d.ngrok.io/salesapi/</x:String>
             <x:String x:Key="UrlPrefix">salesapi/api</x:String>
-            <x:String x:Key="UrlProductsController">/products</x:String>
+            <x:String x:Key="UrlProductsController">/Products</x:String>
             <x:String x:Key="UrlUsersController">/Users</x:String>
         </ResourceDictionary>
 	</Application.Resources>

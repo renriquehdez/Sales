@@ -98,14 +98,14 @@ namespace Sales.ViewModels
             }
 
             this.IsRunning = true;
-            this.isEnabled = false;
+            this.IsEnabled = false;
 
             var connection = await this.apiService.CheckConnection();
 
             if (!connection.IsSuccess)
             {
                 this.IsRunning = false;
-                this.isEnabled = true;
+                this.IsEnabled = true;
 
                 await Application.Current.MainPage.DisplayAlert(
                    Languages.Error,
@@ -120,7 +120,7 @@ namespace Sales.ViewModels
             if (token == null || string.IsNullOrEmpty(token.AccessToken))
             {
                 this.IsRunning = false;
-                this.isEnabled = true;
+                this.IsEnabled = true;
 
                 await Application.Current.MainPage.DisplayAlert(
                    Languages.Error,
@@ -134,6 +134,7 @@ namespace Sales.ViewModels
             Settings.IsRemembered = this.IsRemembered;
 
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            prefix = "api";  // Esto es porque la API tiene directorio Virtual (ReyHdez)
             var controller = Application.Current.Resources["UrlUsersController"].ToString();
             var response = await this.apiService.GetUser(url, prefix, $"{controller}/GetUser", this.Email, token.TokenType, token.AccessToken);
             if (response.IsSuccess)
