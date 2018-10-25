@@ -8,23 +8,15 @@ namespace Sales.ViewModels
     using GalaSoft.MvvmLight.Command;
     using Helpers;
     using Views;
+    using Xamarin.Forms;
 
     public class MainViewModel
     {
         #region Properties
-        public ProductsViewModel Products
-        {
-            get; set;
-        }
+        public ProductsViewModel Products { get; set; }
 
-        public AddProductViewModel AddProduct
-        {
-            get; set;
-        }
-        public EditProductViewModel EditProduct
-        {
-            get; set;
-        }
+        public AddProductViewModel AddProduct { get; set; }
+        public EditProductViewModel EditProduct { get; set; }
 
         public LoginViewModel Login { get; set; }
 
@@ -41,6 +33,20 @@ namespace Sales.ViewModels
                 if (this.UserASP != null && this.UserASP.Claims != null && this.UserASP.Claims.Count > 1)
                 {
                     return $"{this.UserASP.Claims[0].ClaimValue} {this.UserASP.Claims[1].ClaimValue}";
+                }
+
+                return null;
+            }
+        }
+
+        public string UserImageFullPath
+        {
+            get
+            {
+                if (this.UserASP != null && this.UserASP.Claims != null && this.UserASP.Claims.Count > 3)
+                {
+                    var ruta = Application.Current.Resources["UrlAPI2"].ToString();
+                    return $"{this.UserASP.Claims[3].ClaimValue.Substring(1)}";
                 }
 
                 return null;

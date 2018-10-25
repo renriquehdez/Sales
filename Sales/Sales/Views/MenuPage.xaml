@@ -3,6 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:i18n="clr-namespace:Sales.Helpers"
+    xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
     x:Class="Sales.Views.MenuPage"
     BindingContext="{Binding Main, Source={StaticResource Locator}}"
     Title="{i18n:Translate Menu}"
@@ -10,9 +11,12 @@
     <ContentPage.Content>
         <StackLayout
         	Padding="5">
-            <Image
-            	Source="if_Sales_logo">
-            </Image>
+            <controls:CircleImage  
+	            Source="{Binding UserImageFullPath}"
+	            Aspect="AspectFill"
+	            WidthRequest="200"
+	            HeightRequest="200">
+            </controls:CircleImage>
             <Label
 	            FontAttributes="Bold"
 	            FontSize="Large"
@@ -22,6 +26,7 @@
             </Label>
             <ListView
             	ItemsSource="{Binding Menu}"
+                SeparatorVisibility="None"
             	HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>
