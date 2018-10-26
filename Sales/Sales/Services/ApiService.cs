@@ -525,8 +525,10 @@ namespace Sales.Services
                     return null;
                 }
 
+                var urlBase2 = Application.Current.Resources["UrlAPI2"].ToString();
+
                 var tokenResponse = await GetToken(
-                    urlBase,
+                    urlBase2,
                     profile.Id,
                     profile.Id);
                 return tokenResponse;
