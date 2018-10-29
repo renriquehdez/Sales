@@ -2,7 +2,6 @@
 
 namespace Sales.Backend.Controllers
 {
-    using System;
     using System.Data.Entity;
     using System.Linq;
     using System.Net;

@@ -12,7 +12,6 @@ namespace Sales.Common.Models
         [Key]
         public int ProductID { get; set; }
 
-
         public int CategoryId { get; set; }
 
         [Required]
@@ -34,6 +33,10 @@ namespace Sales.Common.Models
         [Display(Name = "Publish On")]
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
+
+        [Required]
+        [StringLength(128)]
+        public string UserId { get; set; }
 
         public virtual Category Category { get; set; }
 
