@@ -135,6 +135,18 @@
   <data name="Cancel" xml:space="preserve">
     <value>Annuler</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Catégories</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Catégorie</value>
+  </data>
+  <data name="CategoryError" xml:space="preserve">
+    <value>Vous devez sélectionner une catégorie.</value>
+  </data>
+  <data name="CategoryPlaceholder" xml:space="preserve">
+    <value>Sélectionnez la catégorie...</value>
+  </data>
   <data name="ChangeImage" xml:space="preserve">
     <value>Touchez l'image pour la changer.</value>
   </data>

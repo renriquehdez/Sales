@@ -12,6 +12,9 @@ namespace Sales.Common.Models
         [Key]
         public int ProductID { get; set; }
 
+
+        public int CategoryId { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Description { get; set; }
@@ -32,11 +35,10 @@ namespace Sales.Common.Models
         [DataType(DataType.Date)]
         public DateTime PublishOn { get; set; }
 
+        public virtual Category Category { get; set; }
+
         [NotMapped]
-        public byte[] ImageArray
-        {
-            get; set;
-        }
+        public byte[] ImageArray { get; set; }
 
         public string ImageFullPath
         {
@@ -47,10 +49,7 @@ namespace Sales.Common.Models
                     return "noproduct";
                 }
 
-                //return $"https://f0990b3e.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
-                //return $"https://ca714f50.ngrok.io/salesbackend/{this.ImagePath.Substring(1)}";
-
-                return $"https://913e0850.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
+                return $"https://b205c84d.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
             }
         }
         #endregion
