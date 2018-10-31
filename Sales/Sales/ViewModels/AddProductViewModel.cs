@@ -179,6 +179,16 @@
                 return;
             }
 
+            if (this.Category == null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.CategoryError,
+                    Languages.Accept);
+                return;
+            }
+
+
             IsRunning = true;
             IsEnabled = false;
 
@@ -205,11 +215,14 @@
 
             var product = new Product
             {
-                Description = Description,
+                Description = this.Description,
                 Price = price,
-                Remarks = Remarks,
+                Remarks = this.Remarks,
                 ImageArray = imageArray,
+                CategoryId = this.Category.CategoryId,
+                UserId = MainViewModel.GetInstance().UserASP.Id,
             };
+
 
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
