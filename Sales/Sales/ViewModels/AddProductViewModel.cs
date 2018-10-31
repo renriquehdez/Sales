@@ -1,5 +1,9 @@
 ﻿namespace Sales.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Common.Models;
     using GalaSoft.MvvmLight.Command;
@@ -7,7 +11,6 @@
     using Plugin.Media;
     using Plugin.Media.Abstractions;
     using Services;
-    
     using Xamarin.Forms;
 
     public class AddProductViewModel : BaseViewModel
@@ -18,33 +21,26 @@
         private bool isRunning;
         private bool isEnabled;
         private ImageSource imageSource;
+        private ObservableCollection<Category> categories;
+        private Category category;
         #endregion
 
         #region Properties
-        public string Description
-        {
-            get; set;
-        }
+        public string Description { get; set; }
 
-        public string Price
-        {
-            get; set;
-        }
+        public string Price { get; set;}
 
-        public string Remarks
-        {
-            get; set;
-        }
+        public string Remarks { get; set; }
 
         public bool IsRunning
         {
             get
             {
-                return this.isRunning;
+                return isRunning;
             }
             set
             {
-                this.SetValue(ref this.isRunning, value);
+                SetValue(ref isRunning, value);
             }
         }
 
@@ -52,11 +48,11 @@
         {
             get
             {
-                return this.isEnabled;
+                return isEnabled;
             }
             set
             {
-                this.SetValue(ref this.isEnabled, value);
+                SetValue(ref isEnabled, value);
             }
         }
 
@@ -64,21 +60,82 @@
         {
             get
             {
-                return this.imageSource;
+                return imageSource;
             }
             set
             {
-                this.SetValue(ref this.imageSource, value);
+                SetValue(ref imageSource, value);
             }
+        }
+
+        public List<Category> MyCategories { get; set; }
+
+        public Category Category
+        {
+            get { return this.category; }
+            set { this.SetValue(ref this.category, value); }
+        }
+
+        public ObservableCollection<Category> Categories
+        {
+            get { return this.categories; }
+            set { this.SetValue(ref this.categories, value); }
         }
         #endregion
 
         #region Constructors
         public AddProductViewModel()
         {
-            this.apiService = new ApiService();
+            apiService = new ApiService();
+            IsEnabled = true;
+            ImageSource = "noproduct";
+            this.LoadCategories();
+        }
+        #endregion
+
+        #region Methods
+        private async void LoadCategories()
+        {
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            var connection = await this.apiService.CheckConnection();
+            if (!connection.IsSuccess)
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, connection.Message, Languages.Accept);
+                return;
+            }
+
+            var answer = await this.LoadCategoriesFromAPI();
+            if (answer)
+            {
+                this.RefreshList();
+            }
+
+            this.IsRunning = false;
             this.IsEnabled = true;
-            this.ImageSource = "noproduct";
+        }
+
+        private void RefreshList()
+        {
+            this.Categories = new ObservableCollection<Category>(this.MyCategories.OrderBy(c => c.Description));
+        }
+
+        private async Task<bool> LoadCategoriesFromAPI()
+        {
+            var url = Application.Current.Resources["UrlAPI"].ToString();
+            var prefix = Application.Current.Resources["UrlPrefix"].ToString();
+            var controller = Application.Current.Resources["UrlCategoriesController"].ToString();
+            var response = await this.apiService.GetList<Category>(url, prefix, controller, Settings.TokenType, Settings.AccessToken);
+            if (!response.IsSuccess)
+            {
+                return false;
+            }
+
+            this.MyCategories = (List<Category>)response.Result;
+            return true;
         }
         #endregion
 
@@ -93,7 +150,7 @@
 
         private async void Save()
         {
-            if (string.IsNullOrEmpty(this.Description))
+            if (string.IsNullOrEmpty(Description))
             {
                 await Application.Current.MainPage.DisplayAlert(
                    Languages.Error,
@@ -102,7 +159,7 @@
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.Price))
+            if (string.IsNullOrEmpty(Price))
             {
                 await Application.Current.MainPage.DisplayAlert(
                    Languages.Error,
@@ -111,7 +168,7 @@
                 return;
             }
 
-            var price = decimal.Parse(this.Price);
+            var price = decimal.Parse(Price);
 
             if (price < 0)
             {
@@ -122,15 +179,15 @@
                 return;
             }
 
-            this.IsRunning = true;
-            this.IsEnabled = false;
+            IsRunning = true;
+            IsEnabled = false;
 
-            var connection = await this.apiService.CheckConnection();
+            var connection = await apiService.CheckConnection();
 
             if (!connection.IsSuccess)
             {
-                this.IsRunning = false;
-                this.IsEnabled = true;
+                IsRunning = false;
+                IsEnabled = true;
 
                 await Application.Current.MainPage.DisplayAlert(
                    Languages.Error,
@@ -141,16 +198,16 @@
 
             // Verifica si va imagen seleccionada
             byte[] imageArray = null;
-            if (this.file != null)
+            if (file != null)
             {
-                imageArray = FilesHelper.ReadFully(this.file.GetStream());
+                imageArray = FilesHelper.ReadFully(file.GetStream());
             }
 
             var product = new Product
             {
-                Description = this.Description,
+                Description = Description,
                 Price = price,
-                Remarks = this.Remarks,
+                Remarks = Remarks,
                 ImageArray = imageArray,
             };
 
@@ -158,12 +215,12 @@
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
 
-            var response = await this.apiService.Post(url, prefix, controller, product, Settings.TokenType, Settings.AccessToken);
+            var response = await apiService.Post(url, prefix, controller, product, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
             {
-                this.IsRunning = false;
-                this.IsEnabled = true;
+                IsRunning = false;
+                IsEnabled = true;
 
                 await Application.Current.MainPage.DisplayAlert(
                    Languages.Error,
@@ -178,8 +235,8 @@
             productViewModel.MyProducts.Add(newProduct);
             productViewModel.RefreshList();
 
-            this.IsRunning = false;
-            this.IsEnabled = true;
+            IsRunning = false;
+            IsEnabled = true;
 
             await App.Navigator.PopAsync();
         }
@@ -205,13 +262,13 @@
 
             if (source == Languages.Cancel)
             {
-                this.file = null;
+                file = null;
                 return;
             }
 
             if (source == Languages.NewPicture)
             {
-                this.file = await CrossMedia.Current.TakePhotoAsync(
+                file = await CrossMedia.Current.TakePhotoAsync(
                     new StoreCameraMediaOptions
                     {
                         Directory = "Sample",
@@ -222,14 +279,14 @@
             }
             else
             {
-                this.file = await CrossMedia.Current.PickPhotoAsync();
+                file = await CrossMedia.Current.PickPhotoAsync();
             }
 
-            if (this.file != null)
+            if (file != null)
             {
-                this.ImageSource = ImageSource.FromStream(() =>
+                ImageSource = ImageSource.FromStream(() =>
                 {
-                    var stream = this.file.GetStream();
+                    var stream = file.GetStream();
                     return stream;
                 });
             }
