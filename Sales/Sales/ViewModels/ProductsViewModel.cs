@@ -20,6 +20,7 @@
         private bool isRefreshing;
         private ObservableCollection<ProductItemViewModel> products;
         private string filter;
+        private Category category;
         #endregion
 
         #region Properties
@@ -65,14 +66,18 @@
             }
         }
 
-        public Category Category { get; set; }
+        public Category Category
+        {
+            get { return this.category; }
+            set { this.SetValue(ref this.category, value); }
+        }
         #endregion
 
         #region Contructors
-        public ProductsViewModel(CategoryItemViewModel categoryItemViewModel)
+        public ProductsViewModel(Category category)
         {
             instance = this;
-            this.Category = Category;
+            this.Category = category;
             this.apiService = new ApiService();
             this.dataService = new DataService();
             this.LoadProducts();
