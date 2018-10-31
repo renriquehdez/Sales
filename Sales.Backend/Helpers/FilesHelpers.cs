@@ -1,10 +1,9 @@
-﻿
-namespace Sales.Backend.Helpers
+﻿namespace Sales.Backend.Helpers
 {
     using System.IO;
     using System.Web;
 
-    public static class FilesHelpers
+    public static class FilesHelper
     {
         public static string UploadPhoto(HttpPostedFileBase file, string folder)
         {
@@ -20,6 +19,5 @@ namespace Sales.Backend.Helpers
 
             return pic;
         }
-
     }
 }

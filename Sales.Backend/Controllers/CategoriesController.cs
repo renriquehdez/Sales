@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Common.Models;
+    using Helpers;
     using Models;
 
     [Authorize]
@@ -51,7 +52,7 @@
 
                 if (view.ImageFile != null)
                 {
-                    pic = Sales.Backend.Helpers.FilesHelpers.UploadPhoto(view.ImageFile, folder);
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
                     pic = $"{folder}/{pic}";
                 }
 
@@ -113,7 +114,7 @@
 
                 if (view.ImageFile != null)
                 {
-                    pic = Sales.Backend.Helpers.FilesHelpers.UploadPhoto(view.ImageFile, folder);
+                    pic = FilesHelper.UploadPhoto(view.ImageFile, folder);
                     pic = $"{folder}/{pic}";
                 }
 
