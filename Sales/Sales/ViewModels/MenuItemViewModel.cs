@@ -46,6 +46,11 @@ namespace Sales.ViewModels
                 MainViewModel.GetInstance().Login = new LoginViewModel();
                 Application.Current.MainPage = new NavigationPage(new LoginPage());
             }
+            else if (this.PageName == "AboutPage")
+            {
+                await App.Navigator.PushAsync(new MapPage());
+            }
+
         }
         #endregion
     }
