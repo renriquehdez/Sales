@@ -210,6 +210,8 @@
                     ProductID = p.ProductID,
                     PublishOn = p.PublishOn,
                     Remarks = p.Remarks,
+                    CategoryId = p.CategoryId,
+                    UserId = p.UserId,
                 });
 
                 this.Products = new ObservableCollection<ProductItemViewModel>(
@@ -227,6 +229,8 @@
                     ProductID = p.ProductID,
                     PublishOn = p.PublishOn,
                     Remarks = p.Remarks,
+                    CategoryId = p.CategoryId,
+                    UserId = p.UserId,
                 }).Where(p => p.Description.ToLower().Contains(this.Filter.ToLower()));
 
                 this.Products = new ObservableCollection<ProductItemViewModel>(
