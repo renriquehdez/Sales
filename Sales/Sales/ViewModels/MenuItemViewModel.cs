@@ -11,20 +11,11 @@ namespace Sales.ViewModels
     public class MenuItemViewModel
     {
         #region Properties
-        public string Icon
-        {
-            get; set;
-        }
+        public string Icon{ get; set; }
 
-        public string Title
-        {
-            get; set;
-        }
+        public string Title { get; set; }
 
-        public string PageName
-        {
-            get; set;
-        }
+        public string PageName { get; set; }
         #endregion
 
         #region Commands
@@ -48,6 +39,7 @@ namespace Sales.ViewModels
             }
             else if (this.PageName == "AboutPage")
             {
+                App.Master.IsPresented = false;
                 await App.Navigator.PushAsync(new MapPage());
             }
 
