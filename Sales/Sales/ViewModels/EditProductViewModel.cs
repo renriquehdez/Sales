@@ -149,7 +149,6 @@ namespace Sales.ViewModels
         }
         #endregion
 
-
         #region Commands
         public ICommand SaveCommand
         {
@@ -190,6 +189,15 @@ namespace Sales.ViewModels
                 return;
             }
 
+            if (this.Category == null)
+            {
+                await Application.Current.MainPage.DisplayAlert(
+                    Languages.Error,
+                    Languages.CategoryError,
+                    Languages.Accept);
+                return;
+            }
+
             this.IsRunning = true;
             this.IsEnabled = false;
 
@@ -215,10 +223,11 @@ namespace Sales.ViewModels
                 this.Product.ImageArray = imageArray;
             }
 
+            this.Product.CategoryId = this.Category.CategoryId;
+
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
-
             var response = await this.apiService.Put(url, prefix, controller, this.Product, this.Product.ProductID, Settings.TokenType, Settings.AccessToken);
 
             if (!response.IsSuccess)
