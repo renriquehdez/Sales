@@ -2,7 +2,8 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"x:Class="Sales.Views.MapPage"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+    x:Class="Sales.Views.MapPage"
     Title="Mapas">
     <ContentPage.Content>
         <StackLayout>
@@ -15,7 +16,8 @@
             </maps:Map>
             <Slider
                 x:Name="MySlider"
-                Value="0.8">
+                Value="0.8"
+                ValueChanged="Handle_ValueChanged">
             </Slider>
         </StackLayout>
     </ContentPage.Content>
