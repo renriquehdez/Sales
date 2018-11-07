@@ -81,19 +81,16 @@ namespace Sales.Services
             }
         }
 
-        public async Task<Response> GetList<T>(string urlBase, string prefix, string controller, string tokenType,string accessToken)
+        public async Task<Response> GetList<T>(string urlBase, string prefix, string controller, string tokenType, string accessToken)
         {
             try
             {
                 var client = new HttpClient();
                 client.BaseAddress = new Uri(urlBase);
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
-                //var url = string.Format("{0}{1}", prefix, controller);
-                var url = $"{prefix}{controller}";  // nueva forma de concatenar 
+                var url = $"{prefix}{controller}";
                 var response = await client.GetAsync(url);
                 var answer = await response.Content.ReadAsStringAsync();
-
-                // Verifica si hubo respuesta
                 if (!response.IsSuccessStatusCode)
                 {
                     return new Response
@@ -104,7 +101,6 @@ namespace Sales.Services
                 }
 
                 var list = JsonConvert.DeserializeObject<List<T>>(answer);
-
                 return new Response
                 {
                     IsSuccess = true,
