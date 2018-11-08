@@ -62,6 +62,7 @@
                 ProductID = p.ProductID,
                 PublishOn = p.PublishOn,
                 Remarks = p.Remarks,
+                CategoryId = p.CategoryId,
             }).ToList();
             return list;
         }

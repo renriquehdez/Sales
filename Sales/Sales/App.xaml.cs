@@ -90,6 +90,7 @@ namespace Sales
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlUsersController"].ToString();
             var response = await apiService.GetUser(url, prefix, $"{controller}/GetUser", token.UserName, token.TokenType, token.AccessToken);
+
             if (response.IsSuccess)
             {
                 var userASP = (MyUserASP)response.Result;

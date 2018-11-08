@@ -61,7 +61,7 @@
             var url = Application.Current.Resources["UrlAPI"].ToString();
             var prefix = Application.Current.Resources["UrlPrefix"].ToString();
             var controller = Application.Current.Resources["UrlProductsController"].ToString();
-            var response = await apiService.GetList<Product>(url, prefix, controller, 5, Settings.TokenType, Settings.AccessToken);
+            var response = await apiService.GetList<Product>(url, prefix, controller, Settings.TokenType, Settings.AccessToken);
             var products = (List<Product>)response.Result;
             foreach (var product in products.Where(p => p.Latitude != 0 && p.Longitude != 0).ToList())
             {

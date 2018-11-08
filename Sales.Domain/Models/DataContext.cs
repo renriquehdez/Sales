@@ -9,6 +9,8 @@ namespace Sales.Domain.Models
         #region Constructors
         public DataContext() : base("DefaultConnection")
         {
+            //this.Configuration.LazyLoadingEnabled = false;
+            //this.Configuration.ProxyCreationEnabled = false;
         }
         #endregion
 
