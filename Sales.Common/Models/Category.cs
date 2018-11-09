@@ -28,7 +28,7 @@
                     return "noproduct";
                 }
 
-                return $"https://b205c84d.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
+                return $"https://6e5ea876.ngrok.io/salesapi/{this.ImagePath.Substring(1)}";
             }
         }
     }
